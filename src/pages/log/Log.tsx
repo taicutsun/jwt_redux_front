@@ -24,8 +24,11 @@ function LogMass() {
   } else return <></>;
 }
 
-let authStatus: boolean;
-function BtnSumbit(prop: { user: string; pass: string }) {
+let authStatus: boolean;//=res.data.status
+export function LoginPage() {
+  const [user, setUsername] = useState("");
+  const [pass, setPass] = useState("");
+  //for sending to server
   const dispatch = useAppDispatch();
   const failed: LogState = { logged: "failed" };
   const pending: LogState = { logged: "pending" };
@@ -34,12 +37,12 @@ function BtnSumbit(prop: { user: string; pass: string }) {
 
   useEffect(() => {
     if (click >= 1) {
-      let data = getAuthStatus(prop.user, prop.pass);
+      let data = getAuthStatus(user, pass);
       data.then((result) => {
         authStatus = result;
         if (authStatus === true) {
           setStatus(true);
-          dispatch(setUserName(prop.user));
+          dispatch(setUserName(user));
           dispatch(setLogK(pending));
           setClick(0);
           cl = 0;
@@ -53,60 +56,51 @@ function BtnSumbit(prop: { user: string; pass: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [click, status]);
 
+  //for sending to server
+
   if (status) {
     return <Navigate to="/posts" />;
   } else {
+    cl = 0;
     return (
-      <div>
-        <button
-          className="loginBtn"
-          onClick={() => {
-            //auth(prop.user,prop.pass);
-            setClick(click + 1);
-            cl++;
-          }}
-        >
-          Войти
-        </button>
-        <LogMass />
-      </div>
+      <>
+        <div id="mainWrap">
+          <div className="greating">Вход</div>
+          <form>
+            <label>Имя</label>
+            <input
+              type="text"
+              name="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label>пароль</label>
+            <input
+              type="text"
+              name="password"
+              onChange={(e) => setPass(e.target.value)}
+            />
+          </form>
+          <button
+            className="loginBtn"
+            onClick={() => {
+              setClick(click + 1);
+              cl++;
+            }}
+          >
+            Войти
+          </button>
+          <LogMass />
+          <div>
+            <button className="backBtn">
+              <Link className="Link" to="/">
+                Назад
+              </Link>
+            </button>
+          </div>
+        </div>
+      </>
     );
+
   }
 }
-
-export function LoginPage() {
-  const [user, setUsername] = useState("");
-  const [pass, setPass] = useState("");
-  cl = 0;
-  return (
-    <>
-      <div id="mainWrap">
-        <div className="greating">Вход</div>
-        <form>
-          <label>Имя</label>
-          <input
-            type="text"
-            name="username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <label>пароль</label>
-          <input
-            type="text"
-            name="password"
-            onChange={(e) => setPass(e.target.value)}
-          />
-        </form>
-        <BtnSumbit user={user} pass={pass} />
-        <div>
-          <button className="backBtn">
-            <Link className="Link" to="/">
-              Назад
-            </Link>
-          </button>
-        </div>
-      </div>
-    </>
-  );
-}
-
 //for log

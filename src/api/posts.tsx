@@ -19,14 +19,12 @@ const axiosTest = async (user: string, pass: string) => {
   } else if (response.data.status === false) {
     console.log('err in auth func');
   }
-  //console.log(response.data.status);
   return response.data.status;
 };
 
 let authStatus;
 export async function getAuthStatus(user: string, pass: string) {
   authStatus = await axiosTest(user, pass);
-  console.log(`authStatusinHelp=${authStatus}`)
   return authStatus;
 }
 //for loginPage

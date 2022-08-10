@@ -16,7 +16,6 @@ function UserPage() {
   useEffect(() => {
     sendAccToken()
       .then((res) => {
-        console.log(res);
         setTimeout(() => {
           setStatus(false);
         }, 10000);

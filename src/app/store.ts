@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "../pages/user/userSlice";
-import logReducer from "../pages/log/logSlice";
+//import userReducer from "../pages/user/userSlice";
+import appReducer from "./appSlice";
 
 export const store = configureStore({
   reducer: {
-    user: userReducer,
-    log: logReducer,
+   // user: userReducer,
+    app: appReducer,
   },
 });
 

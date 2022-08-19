@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 //redux imports
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { CheckUserPass, createUser, selectUserName } from "./userSlice";
+import { CheckUserPass, createUser, selectUserName } from "../../app/appSlice";
 //redux imports
 import { sendAccToken,sendRefToken } from "../../api/posts";
 

@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 //redux imports
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { setUserName } from "../user/userSlice";
-import { setLogF, selectLog, LogState, setLogK } from "./logSlice";
+import { setLogF,setLogT,selectLog, setUserName, selectUserName, selectUserPass, UserState } from "../../app/appSlice";
 //redux imports
 import { getAuthStatus } from "../../api/posts";
 
@@ -30,8 +29,20 @@ export function LoginPage() {
   const [pass, setPass] = useState("");
   //for sending to server
   const dispatch = useAppDispatch();
-  const failed: LogState = { logged: "failed" };
-  const pending: LogState = { logged: "pending" };
+  //for user
+  const username = useAppSelector(selectUserName);
+  const password = useAppSelector(selectUserPass);
+  const failed: UserState = {
+    username: username,
+    password: password,
+    logged: "failed"
+  };
+  const pending: UserState = {
+    username: username,
+    password: password,
+    logged: "pending"
+  };
+  //for user
   const [status, setStatus] = useState(false);
   const [click, setClick] = useState(0);
 
@@ -43,7 +54,7 @@ export function LoginPage() {
         if (authStatus === true) {
           setStatus(true);
           dispatch(setUserName(user));
-          dispatch(setLogK(pending));
+          dispatch(setLogT(pending));
           setClick(0);
           cl = 0;
         }

@@ -54,3 +54,24 @@ export async function sendRefToken() {
     )
     .then((res) => { console.log(res.data); })
 }
+
+//for logslice
+export function axSendU(newuser: string, newpass: string): void {
+  axios
+    .post("http://localhost:3001/create", {
+      username: newuser,
+      password: newpass,
+    })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      if (err.response) {
+        console.log("why");
+      } else if (err.request) {
+        console.log("req");
+      } else {
+        console.log("me");
+      }
+    });
+}
